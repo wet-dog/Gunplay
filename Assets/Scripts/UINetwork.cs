@@ -7,9 +7,10 @@ using UnityEngine.Assertions;
 
 public class UINetwork : NetworkBehaviour
 {
-    public Text m_TicksText;
-    public Text m_RemoteTicksText;
-    public Text m_RemoteTickDeltaText;
+    // todo Refactor to serialize fields
+    public Text TicksText;
+    public Text RemoteTicksText;
+    public Text RemoteTickDeltaText;
 
     private int m_Ticks;
     private int m_RemoteTicks;
@@ -37,9 +38,9 @@ public class UINetwork : NetworkBehaviour
         m_RemoteTicks = m_Rollback.m_RemoteTick;
         m_RemoteTickDelta = m_Rollback.m_TickDelta;
 
-        m_TicksText.text = "Tick [" + m_Ticks.ToString() + "]";
-        m_RemoteTicksText.text = "Remote Tick [" + m_RemoteTicks.ToString() + "]";
-        m_RemoteTickDeltaText.text = "Tick Delta [" + m_RemoteTickDelta.ToString() + "]";
+        TicksText.text = "Tick [" + m_Ticks.ToString() + "]";
+        RemoteTicksText.text = "Remote Tick [" + m_RemoteTicks.ToString() + "]";
+        RemoteTickDeltaText.text = "Tick Delta [" + m_RemoteTickDelta.ToString() + "]";
     }
 
     public override void OnNetworkDespawn()
