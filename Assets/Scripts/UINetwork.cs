@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.UI;
@@ -7,8 +8,12 @@ using UnityEngine.Assertions;
 public class UINetwork : NetworkBehaviour
 {
     public Text m_TicksText;
+    public Text m_RemoteTicksText;
+    public Text m_RemoteTickDeltaText;
 
     private int m_Ticks;
+    private int m_RemoteTicks;
+    private int m_RemoteTickDelta;
 
     private Rollback m_Rollback;
 
@@ -25,17 +30,24 @@ public class UINetwork : NetworkBehaviour
         NetworkManager.NetworkTickSystem.Tick += Tick;
     }
 
+    // Is Tick() the correct update function here?
     private void Tick()
     {
         m_Ticks = m_Rollback.m_Tick;
+        m_RemoteTicks = m_Rollback.m_RemoteTick;
+        m_RemoteTickDelta = m_Rollback.m_TickDelta;
 
         if (IsHost)
         {
-            m_TicksText.text = "Host Ticks: " + m_Ticks.ToString();
+            m_TicksText.text = "Tick [" + m_Ticks.ToString() + "]";
+            m_RemoteTicksText.text = "Remote Tick [" + m_RemoteTicks.ToString() + "]";
+            m_RemoteTickDeltaText.text = "Tick Delta [" + m_RemoteTickDelta.ToString() + "]";
         }
         else if (!IsHost)
         {
-            m_TicksText.text = "Client Ticks: " + m_Ticks.ToString();
+            m_TicksText.text = "Tick [" + m_Ticks.ToString() + "]";
+            m_RemoteTicksText.text = "Remote Tick [" + m_RemoteTicks.ToString() + "]";
+            m_RemoteTickDeltaText.text = "Tick Delta [" + m_RemoteTickDelta.ToString() + "]";
         }
     }
 

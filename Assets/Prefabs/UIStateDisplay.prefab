@@ -154,6 +154,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: UINetwork
       objectReference: {fileID: 0}
+    - target: {fileID: 2405499876242649288, guid: 460ca0cdb710aae4880641c7b6cc4808, type: 3}
+      propertyPath: m_Text
+      value: 'Tick Delta:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041556794678858868, guid: 460ca0cdb710aae4880641c7b6cc4808, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -53.589844
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171616267803778254, guid: 460ca0cdb710aae4880641c7b6cc4808, type: 3}
+      propertyPath: m_RemoteTickDeltaText
+      value: 
+      objectReference: {fileID: 3397953659023584920}
+    - target: {fileID: 8592657654609961669, guid: 460ca0cdb710aae4880641c7b6cc4808, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 951099334
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 460ca0cdb710aae4880641c7b6cc4808, type: 3}
 --- !u!224 &985126030086415462 stripped
@@ -170,5 +186,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d82c5f767ba2fd84795b335cfb97d5f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3397953659023584920 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2405499876242649288, guid: 460ca0cdb710aae4880641c7b6cc4808, type: 3}
+  m_PrefabInstance: {fileID: 1028502684227247696}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

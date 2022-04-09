@@ -13,20 +13,56 @@ public class Rollback : NetworkBehaviour
     private int m_RemoteFrame = INITIAL_FRAME;
     private int m_SyncFrame = INITIAL_FRAME;
     private int m_RemoteFrameAdvantage = 0;
-
+    
+    // These are the same as m_LocalFrame and m_RemoteFrame - I need to refactor
     public int m_Tick;
+    public int m_RemoteTick;
 
-    void Start()
+    public int m_TickDelta;    // Test tick delta not actual implementation
+
+    public float posX;
+    public float posY;
+
+    public float moveSpeed = 5f;
+
+    public InputSystem m_InputSystem;
+    public PlayerMovement m_Movement;
+
+    void Awake()
     {
-        NetworkManager.NetworkTickSystem.Tick += Tick;
+        PlayerStats.OnInstantiated += OnPlayerSpawned;
     }
 
-    public override void OnDestroy()
+    private void OnPlayerSpawned()
     {
-        if (NetworkManager.NetworkTickSystem != null)
+        Debug.Log("Player spawned");
+    }
+
+    [ServerRpc]
+    void SetTickServerRpc(int tick)
+    {
+        SetTickClientRpc(tick);
+    }
+
+    [ClientRpc]
+    void SetTickClientRpc(int tick)
+    {
+        m_Tick = tick;
+    }
+
+    int GetRemoteTick()
+    {
+        var playerGameObjects = GameObject.FindGameObjectsWithTag("Player");
+        foreach (var gameObject in playerGameObjects)
         {
-            NetworkManager.NetworkTickSystem.Tick -= Tick;
+            bool isRemoteGameObject = !gameObject.GetComponent<NetworkObject>().IsOwner;
+            if (isRemoteGameObject)
+            {
+                return gameObject.GetComponent<Rollback>().m_Tick;
+            }
         }
+
+        return 0;
     }
 
     void StoreGameState() {}
@@ -110,16 +146,47 @@ public class Rollback : NetworkBehaviour
         StoreGameState();
     }
 
-    private void Tick()
+    void FixedUpdate()
     {
-        m_Tick++;
-
-        UpdateNetwork();
-        UpdateSynchronization();
-
-        if (TimeSynced())
+        if (IsOwner)
         {
-            NormalUpdate();
+            m_Tick++;    // Won't update tick here in actual implementation - look at NormalUpdate()
+
+            SetTickServerRpc(m_Tick);
+            m_RemoteTick = GetRemoteTick();
+            m_TickDelta = m_Tick - m_RemoteTick;
+
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertical = Input.GetAxisRaw("Vertical");
+
+            MovePlayerServerRpc(horizontal, vertical);
+
+            UpdateNetwork();
+            UpdateSynchronization();
+
+            if (TimeSynced())
+            {
+                NormalUpdate();
+            }
         }
+
+        Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+        rb.MovePosition(rb.position + moveSpeed * Time.fixedDeltaTime * new Vector2(posX, posY));
     }
+
+    [ServerRpc]
+    void MovePlayerServerRpc(float horizontal, float vertical)
+    {
+        MovePlayerClientRpc(horizontal, vertical);
+    }
+
+    [ClientRpc]
+    void MovePlayerClientRpc(float horizontal, float vertical)
+    {
+        posX = horizontal;
+        posY = vertical;
+        //gameObject.GetComponent<Rigidbody2D>().MovePosition(new Vector2(horizontal, vertical));
+        //m_Movement.MovePlayer(m_InputSystem);
+    }
+
 }

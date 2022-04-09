@@ -44,6 +44,8 @@ GameObject:
   - component: {fileID: 861967534192384145}
   - component: {fileID: 4105472948813318460}
   - component: {fileID: 861967534192384146}
+  - component: {fileID: 705332008566326697}
+  - component: {fileID: 4851631223960704420}
   - component: {fileID: 861967534192384147}
   - component: {fileID: 6033233991520297811}
   - component: {fileID: 861967534192384144}
@@ -175,6 +177,35 @@ MonoBehaviour:
   moveSpeed: 5
   rb: {fileID: 861967534192384140}
   cam: {fileID: 0}
+--- !u!114 &705332008566326697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861967534192384137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b4e7d8f66ba414081863e70b346cd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4851631223960704420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861967534192384137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cac385b6432007f458e305898b04d1bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Tick: 0
+  m_RemoteTick: 0
+  m_TickDelta: 0
+  m_InputSystem: {fileID: 705332008566326697}
+  m_Movement: {fileID: 861967534192384146}
 --- !u!114 &861967534192384147
 MonoBehaviour:
   m_ObjectHideFlags: 0
