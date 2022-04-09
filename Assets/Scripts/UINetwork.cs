@@ -37,18 +37,9 @@ public class UINetwork : NetworkBehaviour
         m_RemoteTicks = m_Rollback.m_RemoteTick;
         m_RemoteTickDelta = m_Rollback.m_TickDelta;
 
-        if (IsHost)
-        {
-            m_TicksText.text = "Tick [" + m_Ticks.ToString() + "]";
-            m_RemoteTicksText.text = "Remote Tick [" + m_RemoteTicks.ToString() + "]";
-            m_RemoteTickDeltaText.text = "Tick Delta [" + m_RemoteTickDelta.ToString() + "]";
-        }
-        else if (!IsHost)
-        {
-            m_TicksText.text = "Tick [" + m_Ticks.ToString() + "]";
-            m_RemoteTicksText.text = "Remote Tick [" + m_RemoteTicks.ToString() + "]";
-            m_RemoteTickDeltaText.text = "Tick Delta [" + m_RemoteTickDelta.ToString() + "]";
-        }
+        m_TicksText.text = "Tick [" + m_Ticks.ToString() + "]";
+        m_RemoteTicksText.text = "Remote Tick [" + m_RemoteTicks.ToString() + "]";
+        m_RemoteTickDeltaText.text = "Tick Delta [" + m_RemoteTickDelta.ToString() + "]";
     }
 
     public override void OnNetworkDespawn()
